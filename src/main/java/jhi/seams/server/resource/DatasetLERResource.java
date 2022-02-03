@@ -16,18 +16,9 @@ import static jhi.seams.server.database.codegen.tables.Components.*;
 import static jhi.seams.server.database.codegen.tables.ViewDatasetMeta.*;
 import static jhi.seams.server.database.codegen.tables.ViewMeasurementComponents.*;
 
-@Path("dataset/ler")
+@Path("dataset")
 public class DatasetLERResource
 {
-	public static void main(String[] args)
-		throws SQLException
-	{
-		Database.init("localhost", "seams", null, "root", null, false);
-
-		DatasetLERResource resource = new DatasetLERResource();
-		resource.getDatasetLER();
-	}
-
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
