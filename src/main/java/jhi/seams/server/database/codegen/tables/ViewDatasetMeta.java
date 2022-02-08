@@ -4,7 +4,7 @@
 package jhi.seams.server.database.codegen.tables;
 
 
-import jhi.seams.server.binding.IntArrayBinding;
+import jhi.seams.server.binding.*;
 import jhi.seams.server.database.codegen.SeamsDb;
 import jhi.seams.server.database.codegen.tables.records.ViewDatasetMetaRecord;
 import org.jooq.*;
@@ -28,7 +28,7 @@ import java.sql.Timestamp;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ViewDatasetMeta extends TableImpl<ViewDatasetMetaRecord> {
 
-    private static final long serialVersionUID = 1428752601;
+    private static final long serialVersionUID = 541087610;
 
     /**
      * The reference instance of <code>seams_db.view_dataset_meta</code>
@@ -127,6 +127,11 @@ public class ViewDatasetMeta extends TableImpl<ViewDatasetMetaRecord> {
      * The column <code>seams_db.view_dataset_meta.harvest_date</code>.
      */
     public final TableField<ViewDatasetMetaRecord, Timestamp> HARVEST_DATE = createField("harvest_date", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+
+    /**
+     * The column <code>seams_db.view_dataset_meta.component_names</code>.
+     */
+    public final TableField<ViewDatasetMetaRecord, String[]> COMPONENT_NAMES = createField("component_names", org.jooq.impl.DefaultDataType.getDefaultDataType("\"seams\".\"view_dataset_meta_component_names\""), this, "", new StringArrayBinding());
 
     /**
      * The column <code>seams_db.view_dataset_meta.component_ids</code>.

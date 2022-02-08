@@ -35,6 +35,12 @@
 					<types>.*json.*</types>
 					<userType>Integer[]</userType>
 				</forcedType>
+				<forcedType>
+					<binding>jhi.seams.server.binding.StringArrayBinding</binding>
+					<expression>.*(view_).*\..*(_names).*</expression>
+					<types>.*json.*</types>
+					<userType>String[]</userType>
+				</forcedType>
 			</forcedTypes>
 		</database>
 

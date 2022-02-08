@@ -24,7 +24,7 @@ import java.util.Arrays;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ViewDatasetMeta implements Serializable {
 
-    private static final long serialVersionUID = 1366926591;
+    private static final long serialVersionUID = 2095741611;
 
     private Integer   datasetId;
     private String    datasetName;
@@ -43,6 +43,7 @@ public class ViewDatasetMeta implements Serializable {
     private String    coverCrop;
     private Timestamp sowingDate;
     private Timestamp harvestDate;
+    private String[]  componentNames;
     private Integer[] componentIds;
 
     public ViewDatasetMeta() {}
@@ -65,6 +66,7 @@ public class ViewDatasetMeta implements Serializable {
         this.coverCrop = value.coverCrop;
         this.sowingDate = value.sowingDate;
         this.harvestDate = value.harvestDate;
+        this.componentNames = value.componentNames;
         this.componentIds = value.componentIds;
     }
 
@@ -86,6 +88,7 @@ public class ViewDatasetMeta implements Serializable {
         String    coverCrop,
         Timestamp sowingDate,
         Timestamp harvestDate,
+        String[]  componentNames,
         Integer[] componentIds
     ) {
         this.datasetId = datasetId;
@@ -105,6 +108,7 @@ public class ViewDatasetMeta implements Serializable {
         this.coverCrop = coverCrop;
         this.sowingDate = sowingDate;
         this.harvestDate = harvestDate;
+        this.componentNames = componentNames;
         this.componentIds = componentIds;
     }
 
@@ -244,6 +248,14 @@ public class ViewDatasetMeta implements Serializable {
         this.harvestDate = harvestDate;
     }
 
+    public String[] getComponentNames() {
+        return this.componentNames;
+    }
+
+    public void setComponentNames(String... componentNames) {
+        this.componentNames = componentNames;
+    }
+
     public Integer[] getComponentIds() {
         return this.componentIds;
     }
@@ -273,6 +285,7 @@ public class ViewDatasetMeta implements Serializable {
         sb.append(", ").append(coverCrop);
         sb.append(", ").append(sowingDate);
         sb.append(", ").append(harvestDate);
+        sb.append(", ").append(Arrays.toString(componentNames));
         sb.append(", ").append(Arrays.toString(componentIds));
 
         sb.append(")");

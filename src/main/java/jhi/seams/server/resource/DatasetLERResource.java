@@ -3,7 +3,7 @@ package jhi.seams.server.resource;
 import jhi.seams.pojo.*;
 import jhi.seams.server.Database;
 import jhi.seams.server.database.codegen.tables.pojos.*;
-import org.apache.commons.collections4.CollectionUtils;
+import jhi.seams.server.util.CollectionUtils;
 import org.jooq.DSLContext;
 
 import javax.ws.rs.*;
@@ -41,9 +41,9 @@ public class DatasetLERResource
 																					.where(VIEW_MEASUREMENT_COMPONENTS.DATASET_ID.eq(d.getDatasetId()))
 																					.fetchGroups(VIEW_MEASUREMENT_COMPONENTS.COMPONENT_ID, ViewMeasurementComponents.class);
 
-				List<Components> c = d.getComponentIds() != null ? Arrays.stream(d.getComponentIds()).map(components::get).collect(Collectors.toList()) : null;
+				List<Components> c = CollectionUtils.isEmptyOrNull(d.getComponentIds()) ? null : Arrays.stream(d.getComponentIds()).map(components::get).collect(Collectors.toList());
 
-				if (!CollectionUtils.isEmpty(c))
+				if (!CollectionUtils.isEmptyOrNull(c))
 				{
 					// For each of the components
 					c.forEach(comp -> {
@@ -51,7 +51,7 @@ public class DatasetLERResource
 						List<ViewMeasurementComponents> data = measurements.get(comp.getId());
 
 						// And add them to the dataset
-						if (!CollectionUtils.isEmpty(data))
+						if (!CollectionUtils.isEmptyOrNull(data))
 							d.addComponentData(new ComponentData(comp, data));
 					});
 				}
