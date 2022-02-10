@@ -4,6 +4,7 @@
 package jhi.seams.server.database.codegen.tables;
 
 
+import jhi.seams.server.binding.IntArrayBinding;
 import jhi.seams.server.database.codegen.SeamsDb;
 import jhi.seams.server.database.codegen.enums.ViewMeasurementComponentsMeasurementType;
 import jhi.seams.server.database.codegen.tables.records.ViewMeasurementComponentsRecord;
@@ -28,7 +29,7 @@ import java.sql.Timestamp;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ViewMeasurementComponents extends TableImpl<ViewMeasurementComponentsRecord> {
 
-    private static final long serialVersionUID = 218990482;
+    private static final long serialVersionUID = 2112822800;
 
     /**
      * The reference instance of <code>seams_db.view_measurement_components</code>
@@ -44,9 +45,9 @@ public class ViewMeasurementComponents extends TableImpl<ViewMeasurementComponen
     }
 
     /**
-     * The column <code>seams_db.view_measurement_components.component_id</code>.
+     * The column <code>seams_db.view_measurement_components.component_ids</code>.
      */
-    public final TableField<ViewMeasurementComponentsRecord, Integer> COMPONENT_ID = createField("component_id", org.jooq.impl.SQLDataType.INTEGER.defaultValue(org.jooq.impl.DSL.inline("0", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<ViewMeasurementComponentsRecord, Integer[]> COMPONENT_IDS = createField("component_ids", org.jooq.impl.DefaultDataType.getDefaultDataType("\"seams\".\"view_measurement_components_component_ids\""), this, "", new IntArrayBinding());
 
     /**
      * The column <code>seams_db.view_measurement_components.measurement_id</code>.

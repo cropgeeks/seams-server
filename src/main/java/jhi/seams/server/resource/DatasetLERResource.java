@@ -1,6 +1,6 @@
 package jhi.seams.server.resource;
 
-import jhi.seams.pojo.*;
+import jhi.seams.pojo.ViewDatasetMetaComponents;
 import jhi.seams.server.Database;
 import jhi.seams.server.database.codegen.tables.pojos.*;
 import jhi.seams.server.util.CollectionUtils;
@@ -36,25 +36,10 @@ public class DatasetLERResource
 														 .fetchMap(COMPONENTS.ID, Components.class);
 
 			datasets.forEach(d -> {
-				// For each dataset get the mapping between component id and measurements
-				Map<Integer, List<ViewMeasurementComponents>> measurements = context.selectFrom(VIEW_MEASUREMENT_COMPONENTS)
-																					.where(VIEW_MEASUREMENT_COMPONENTS.DATASET_ID.eq(d.getDatasetId()))
-																					.fetchGroups(VIEW_MEASUREMENT_COMPONENTS.COMPONENT_ID, ViewMeasurementComponents.class);
-
-				List<Components> c = CollectionUtils.isEmptyOrNull(d.getComponentIds()) ? null : Arrays.stream(d.getComponentIds()).map(components::get).collect(Collectors.toList());
-
-				if (!CollectionUtils.isEmptyOrNull(c))
-				{
-					// For each of the components
-					c.forEach(comp -> {
-						// Get the measurements
-						List<ViewMeasurementComponents> data = measurements.get(comp.getId());
-
-						// And add them to the dataset
-						if (!CollectionUtils.isEmptyOrNull(data))
-							d.addComponentData(new ComponentData(comp, data));
-					});
-				}
+				d.setComponents(CollectionUtils.isEmptyOrNull(d.getComponentIds()) ? null : Arrays.stream(d.getComponentIds()).map(components::get).collect(Collectors.toList()));
+				d.setData(context.selectFrom(VIEW_MEASUREMENT_COMPONENTS)
+								 .where(VIEW_MEASUREMENT_COMPONENTS.DATASET_ID.eq(d.getDatasetId()))
+								 .fetchInto(ViewMeasurementComponents.class));
 			});
 
 			return datasets;

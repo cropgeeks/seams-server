@@ -1,30 +1,33 @@
 package jhi.seams.pojo;
 
-import jhi.seams.server.database.codegen.tables.pojos.ViewDatasetMeta;
+import jhi.seams.server.database.codegen.tables.pojos.*;
 
-import java.util.*;
+import java.util.List;
 
 public class ViewDatasetMetaComponents extends ViewDatasetMeta
 {
-	private List<ComponentData> componentData;
+	private List<Components>                components;
+	private List<ViewMeasurementComponents> data;
 
-	public List<ComponentData> getComponentData()
+	public List<Components> getComponents()
 	{
-		return componentData;
+		return components;
 	}
 
-	public ViewDatasetMetaComponents setComponentData(List<ComponentData> componentData)
+	public ViewDatasetMetaComponents setComponents(List<Components> components)
 	{
-		this.componentData = componentData;
+		this.components = components;
 		return this;
 	}
 
-	public ViewDatasetMetaComponents addComponentData(ComponentData data) {
-		if (componentData == null)
-			componentData = new ArrayList<>();
+	public List<ViewMeasurementComponents> getData()
+	{
+		return data;
+	}
 
-		componentData.add(data);
-
+	public ViewDatasetMetaComponents setData(List<ViewMeasurementComponents> data)
+	{
+		this.data = data;
 		return this;
 	}
 }

@@ -9,6 +9,7 @@ import jhi.seams.server.database.codegen.enums.ViewMeasurementComponentsMeasurem
 import javax.annotation.Generated;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Arrays;
 
 
 // @formatter:off
@@ -25,9 +26,9 @@ import java.sql.Timestamp;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ViewMeasurementComponents implements Serializable {
 
-    private static final long serialVersionUID = 895628437;
+    private static final long serialVersionUID = -518750093;
 
-    private Integer                                  componentId;
+    private Integer[]                                componentIds;
     private Integer                                  measurementId;
     private Integer                                  datasetId;
     private Integer                                  traitId;
@@ -41,7 +42,7 @@ public class ViewMeasurementComponents implements Serializable {
     public ViewMeasurementComponents() {}
 
     public ViewMeasurementComponents(ViewMeasurementComponents value) {
-        this.componentId = value.componentId;
+        this.componentIds = value.componentIds;
         this.measurementId = value.measurementId;
         this.datasetId = value.datasetId;
         this.traitId = value.traitId;
@@ -54,18 +55,18 @@ public class ViewMeasurementComponents implements Serializable {
     }
 
     public ViewMeasurementComponents(
-        Integer                                  componentId,
-        Integer                                  measurementId,
-        Integer                                  datasetId,
-        Integer                                  traitId,
-        String                                   traitName,
-        Integer                                  traitUnitId,
-        String                                   traitUnitName,
-        Double                                   measurement,
+        Integer[] componentIds,
+        Integer measurementId,
+        Integer datasetId,
+        Integer traitId,
+        String traitName,
+        Integer traitUnitId,
+        String traitUnitName,
+        Double measurement,
         ViewMeasurementComponentsMeasurementType measurementType,
-        Timestamp                                createdOn
+        Timestamp createdOn
     ) {
-        this.componentId = componentId;
+        this.componentIds = componentIds;
         this.measurementId = measurementId;
         this.datasetId = datasetId;
         this.traitId = traitId;
@@ -77,19 +78,23 @@ public class ViewMeasurementComponents implements Serializable {
         this.createdOn = createdOn;
     }
 
-    public Integer getComponentId() {
-        return this.componentId;
+    public Integer[] getComponentIds()
+    {
+        return this.componentIds;
     }
 
-    public void setComponentId(Integer componentId) {
-        this.componentId = componentId;
+    public void setComponentIds(Integer... componentIds)
+    {
+        this.componentIds = componentIds;
     }
 
-    public Integer getMeasurementId() {
+    public Integer getMeasurementId()
+    {
         return this.measurementId;
     }
 
-    public void setMeasurementId(Integer measurementId) {
+    public void setMeasurementId(Integer measurementId)
+    {
         this.measurementId = measurementId;
     }
 
@@ -161,7 +166,7 @@ public class ViewMeasurementComponents implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder("ViewMeasurementComponents (");
 
-        sb.append(componentId);
+        sb.append(Arrays.toString(componentIds));
         sb.append(", ").append(measurementId);
         sb.append(", ").append(datasetId);
         sb.append(", ").append(traitId);
