@@ -3,26 +3,31 @@ package jhi.seams.server.resource;
 import jhi.seams.pojo.ViewDatasetMetaComponents;
 import jhi.seams.server.Database;
 import jhi.seams.server.database.codegen.tables.pojos.*;
-import jhi.seams.server.util.CollectionUtils;
+import jhi.seams.server.util.*;
 import org.jooq.DSLContext;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.*;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.sql.*;
+import java.util.Date;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static jhi.seams.server.database.codegen.tables.Components.*;
+import static jhi.seams.server.database.codegen.tables.ViewDatasetData.*;
 import static jhi.seams.server.database.codegen.tables.ViewDatasetMeta.*;
 import static jhi.seams.server.database.codegen.tables.ViewMeasurementComponents.*;
 
 @Path("dataset")
-public class DatasetLERResource
+public class DatasetResource
 {
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<ViewDatasetMetaComponents> getDatasetLER()
+	public List<ViewDatasetMetaComponents> getDatasets()
 		throws SQLException
 	{
 		try (Connection conn = Database.getConnection())
@@ -44,5 +49,33 @@ public class DatasetLERResource
 
 			return datasets;
 		}
+	}
+
+	@Path("/data")
+	@GET
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public Response getDatasetData()
+		throws SQLException, IOException
+	{
+		File resultFile = ResourceUtils.createTempFile(null, "seams-" + DateTimeUtils.getFormattedDateTime(new Date()), ".txt", false);
+
+		try (Connection conn = Database.getConnection();
+			 PrintWriter bw = new PrintWriter(Files.newBufferedWriter(resultFile.toPath(), StandardCharsets.UTF_8)))
+		{
+			DSLContext context = Database.getContext(conn);
+
+			ResourceUtils.exportToFileStreamed(bw, context.selectFrom(VIEW_DATASET_DATA).fetchLazy(), true, null);
+		}
+
+		java.nio.file.Path zipFilePath = resultFile.toPath();
+		return Response.ok((StreamingOutput) output -> {
+						   Files.copy(zipFilePath, output);
+						   Files.deleteIfExists(zipFilePath);
+					   })
+					   .type(MediaType.TEXT_PLAIN)
+					   .header("content-disposition", "attachment;filename= \"" + resultFile.getName() + "\"")
+					   .header("content-length", resultFile.length())
+					   .build();
 	}
 }

@@ -41,6 +41,12 @@
 					<types>.*json.*</types>
 					<userType>String[]</userType>
 				</forcedType>
+				<forcedType>
+					<binding>jhi.seams.server.binding.StringArrayBinding</binding>
+					<expression>.*(view_dataset_data).*\..*(components).*</expression>
+					<types>.*json.*</types>
+					<userType>String[]</userType>
+				</forcedType>
 			</forcedTypes>
 		</database>
 

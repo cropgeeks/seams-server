@@ -55,16 +55,16 @@ public class ViewMeasurementComponents implements Serializable {
     }
 
     public ViewMeasurementComponents(
-        Integer[] componentIds,
-        Integer measurementId,
-        Integer datasetId,
-        Integer traitId,
-        String traitName,
-        Integer traitUnitId,
-        String traitUnitName,
-        Double measurement,
+        Integer[]                                componentIds,
+        Integer                                  measurementId,
+        Integer                                  datasetId,
+        Integer                                  traitId,
+        String                                   traitName,
+        Integer                                  traitUnitId,
+        String                                   traitUnitName,
+        Double                                   measurement,
         ViewMeasurementComponentsMeasurementType measurementType,
-        Timestamp createdOn
+        Timestamp                                createdOn
     ) {
         this.componentIds = componentIds;
         this.measurementId = measurementId;
@@ -78,23 +78,19 @@ public class ViewMeasurementComponents implements Serializable {
         this.createdOn = createdOn;
     }
 
-    public Integer[] getComponentIds()
-    {
+    public Integer[] getComponentIds() {
         return this.componentIds;
     }
 
-    public void setComponentIds(Integer... componentIds)
-    {
+    public void setComponentIds(Integer... componentIds) {
         this.componentIds = componentIds;
     }
 
-    public Integer getMeasurementId()
-    {
+    public Integer getMeasurementId() {
         return this.measurementId;
     }
 
-    public void setMeasurementId(Integer measurementId)
-    {
+    public void setMeasurementId(Integer measurementId) {
         this.measurementId = measurementId;
     }
 
