@@ -27,7 +27,7 @@ import java.sql.Timestamp;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ViewDatasetDataRecord extends TableRecordImpl<ViewDatasetDataRecord> implements Record21<Integer, String, String, Double, Double, String, String, String, String, String, String, String, String, String, String, Timestamp, Timestamp, String[], Double, Double, ViewDatasetDataMeasurementType> {
 
-    private static final long serialVersionUID = 289053463;
+    private static final long serialVersionUID = 1733898755;
 
     /**
      * Setter for <code>seams_db.view_dataset_data.dataset_id</code>.
@@ -226,16 +226,16 @@ public class ViewDatasetDataRecord extends TableRecordImpl<ViewDatasetDataRecord
     }
 
     /**
-     * Setter for <code>seams_db.view_dataset_data.cover_crop</code>.
+     * Setter for <code>seams_db.view_dataset_data.crop_purpose</code>.
      */
-    public void setCoverCrop(String value) {
+    public void setCropPurpose(String value) {
         set(14, value);
     }
 
     /**
-     * Getter for <code>seams_db.view_dataset_data.cover_crop</code>.
+     * Getter for <code>seams_db.view_dataset_data.crop_purpose</code>.
      */
-    public String getCoverCrop() {
+    public String getCropPurpose() {
         return (String) get(14);
     }
 
@@ -460,7 +460,7 @@ public class ViewDatasetDataRecord extends TableRecordImpl<ViewDatasetDataRecord
      */
     @Override
     public Field<String> field15() {
-        return ViewDatasetData.VIEW_DATASET_DATA.COVER_CROP;
+        return ViewDatasetData.VIEW_DATASET_DATA.CROP_PURPOSE;
     }
 
     /**
@@ -628,7 +628,7 @@ public class ViewDatasetDataRecord extends TableRecordImpl<ViewDatasetDataRecord
      */
     @Override
     public String component15() {
-        return getCoverCrop();
+        return getCropPurpose();
     }
 
     /**
@@ -796,7 +796,7 @@ public class ViewDatasetDataRecord extends TableRecordImpl<ViewDatasetDataRecord
      */
     @Override
     public String value15() {
-        return getCoverCrop();
+        return getCropPurpose();
     }
 
     /**
@@ -978,7 +978,7 @@ public class ViewDatasetDataRecord extends TableRecordImpl<ViewDatasetDataRecord
      */
     @Override
     public ViewDatasetDataRecord value15(String value) {
-        setCoverCrop(value);
+        setCropPurpose(value);
         return this;
     }
 
@@ -1079,7 +1079,7 @@ public class ViewDatasetDataRecord extends TableRecordImpl<ViewDatasetDataRecord
     /**
      * Create a detached, initialised ViewDatasetDataRecord
      */
-    public ViewDatasetDataRecord(Integer datasetId, String datasetName, String siteName, Double latitude, Double longitude, String tillage, String fertilizer, String herbicide, String farmManagement, String weedCover, String disease, String pests, String soilHealth, String biodiversity, String coverCrop, Timestamp sowingDate, Timestamp harvestDate, String[] components, Double sowingRate, Double yield, ViewDatasetDataMeasurementType measurementType) {
+    public ViewDatasetDataRecord(Integer datasetId, String datasetName, String siteName, Double latitude, Double longitude, String tillage, String fertilizer, String herbicide, String farmManagement, String weedCover, String disease, String pests, String soilHealth, String biodiversity, String cropPurpose, Timestamp sowingDate, Timestamp harvestDate, String[] components, Double sowingRate, Double yield, ViewDatasetDataMeasurementType measurementType) {
         super(ViewDatasetData.VIEW_DATASET_DATA);
 
         set(0, datasetId);
@@ -1096,7 +1096,7 @@ public class ViewDatasetDataRecord extends TableRecordImpl<ViewDatasetDataRecord
         set(11, pests);
         set(12, soilHealth);
         set(13, biodiversity);
-        set(14, coverCrop);
+        set(14, cropPurpose);
         set(15, sowingDate);
         set(16, harvestDate);
         set(17, components);

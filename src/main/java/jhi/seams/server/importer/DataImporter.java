@@ -13,6 +13,7 @@ import org.jooq.impl.DSL;
 import java.io.*;
 import java.sql.*;
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static jhi.seams.server.database.codegen.tables.Components.*;
@@ -41,7 +42,7 @@ public class DataImporter
 			try (FileInputStream file = new FileInputStream(input);
 				 Workbook wb = new XSSFWorkbook(file))
 			{
-				Sheet data = wb.getSheet("Form1");
+				Sheet data = wb.getSheet("Form responses 1");// TODO
 
 				Row headers = data.getRow(0);
 
@@ -86,25 +87,29 @@ public class DataImporter
 				for (int i = 1; i < data.getPhysicalNumberOfRows(); i++)
 				{
 					Row row = data.getRow(i);
-					Integer id = getInt(row.getCell(hm.get("ID")));
-					String email = getOptional(row.getCell(hm.get("Email address (this information will not be shared)")));
+					Integer id = row.getRowNum(); // Row number as external identifier
+					String email = getOptional(row.getCell(hm.get("This information will not be shared.")));
 					String datasetName = getOptional(row.getCell(hm.get("Trial Identifier/dataset name")));
+
+					if (StringUtils.isEmpty(datasetName)) {
+						Logger.getLogger("").warning("Missing dataset name found, skipping row: " + id);
+						continue;
+					}
+
 					String trialSite = getOptional(row.getCell(hm.get("Trial site - please input the first half of your postcode (e.g. DD2)")));
 					Double longitude = getDouble(row.getCell(hm.get("Where is the trial - Longitude")));
 					Double latitude = getDouble(row.getCell(hm.get("Where is the trial - Latitude")));
 					String tillage = getOptional(row.getCell(hm.get("Tillage - please choose your tillage method.")));
-					String fertilizer = getOptional(row.getCell(hm.get("Have you used fertiliser?")));
-					String fertilizerDetails = getOptional(row.getCell(hm.get("Please give details about your fertiliser application.")));
-					String herbicide = getOptional(row.getCell(hm.get("Have you used herbicides or pesticides?")));
-					String herbicideDetails = getOptional(row.getCell(hm.get("Please give details about your herbicide and pesticide application.")));
+					String fertilizerDetails = getOptional(row.getCell(hm.get("Have you used fertiliser? If \"YES\" please give details about your fertiliser application in the \"other\" option.")));
+					String herbicideDetails = getOptional(row.getCell(hm.get("Have you used herbicides or pesticides?  If \"YES\" please give details about your herbicide and pesticide application in the \"other\" option.")));
 					String farmManagement = getOptional(row.getCell(hm.get("Describe your farm management system e.g. organic, LEAF, conventional")));
 					String weedCover = getOptional(row.getCell(hm.get("Weed Cover - if you have recorded weed cover % please record the details here.")));
 					String disease = getOptional(row.getCell(hm.get("Disease  - if you have recorded disease incidence please record them here.")));
 					String pests = getOptional(row.getCell(hm.get("Pests -if you have pest incidence please record them here.")));
 					String soilHealth = getOptional(row.getCell(hm.get("Soil Health - please describe any observations.")));
 					String biodiversity = getOptional(row.getCell(hm.get("Bio-diversity - if you have recorded bio-diversity please record your observations here.")));
-					String coverCrop = getOptional(row.getCell(hm.get("What cover crop have you grown?")));
-					Timestamp sowingDate = getTimestamp(row.getCell(hm.get("This section you will be inputting information about your plant mixtures.\nSowing Date")));
+					String cropPurpose = getOptional(row.getCell(hm.get("What are you growing this crop for?")));
+					Timestamp sowingDate = getTimestamp(row.getCell(hm.get("This section you will be inputting information about your plant mixtures. Sowing Date")));
 					Timestamp harvestDate = getTimestamp(row.getCell(hm.get("Harvest Date")));
 					Integer componentCount = getInt(row.getCell(hm.get("How many components are in your mixture?")));
 					if (componentCount == null)
@@ -150,7 +155,7 @@ public class DataImporter
 						dm.setPests(pests);
 						dm.setSoilHealth(soilHealth);
 						dm.setBiodiversity(biodiversity);
-						dm.setCoverCrop(coverCrop);
+						dm.setCropPurpose(cropPurpose);
 						dm.setSowingDate(sowingDate);
 						dm.setHarvestDate(harvestDate);
 						dm.store();

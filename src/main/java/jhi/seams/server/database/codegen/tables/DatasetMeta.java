@@ -28,7 +28,7 @@ import java.util.*;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class DatasetMeta extends TableImpl<DatasetMetaRecord> {
 
-    private static final long serialVersionUID = -1684787266;
+    private static final long serialVersionUID = 21606851;
 
     /**
      * The reference instance of <code>seams_db.dataset_meta</code>
@@ -99,9 +99,9 @@ public class DatasetMeta extends TableImpl<DatasetMetaRecord> {
     public final TableField<DatasetMetaRecord, String> BIODIVERSITY = createField("biodiversity", org.jooq.impl.SQLDataType.CLOB, this, "");
 
     /**
-     * The column <code>seams_db.dataset_meta.cover_crop</code>.
+     * The column <code>seams_db.dataset_meta.crop_purpose</code>.
      */
-    public final TableField<DatasetMetaRecord, String> COVER_CROP = createField("cover_crop", org.jooq.impl.SQLDataType.CLOB, this, "");
+    public final TableField<DatasetMetaRecord, String> CROP_PURPOSE = createField("crop_purpose", org.jooq.impl.SQLDataType.CLOB, this, "");
 
     /**
      * The column <code>seams_db.dataset_meta.sowing_date</code>.

@@ -26,7 +26,7 @@ import java.sql.Timestamp;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class DatasetMetaRecord extends UpdatableRecordImpl<DatasetMetaRecord> implements Record16<Integer, String, String, String, String, String, String, String, String, String, String, String, Timestamp, Timestamp, Timestamp, Timestamp> {
 
-    private static final long serialVersionUID = -175680721;
+    private static final long serialVersionUID = -508404815;
 
     /**
      * Setter for <code>seams_db.dataset_meta.dataset_id</code>.
@@ -183,16 +183,16 @@ public class DatasetMetaRecord extends UpdatableRecordImpl<DatasetMetaRecord> im
     }
 
     /**
-     * Setter for <code>seams_db.dataset_meta.cover_crop</code>.
+     * Setter for <code>seams_db.dataset_meta.crop_purpose</code>.
      */
-    public void setCoverCrop(String value) {
+    public void setCropPurpose(String value) {
         set(11, value);
     }
 
     /**
-     * Getter for <code>seams_db.dataset_meta.cover_crop</code>.
+     * Getter for <code>seams_db.dataset_meta.crop_purpose</code>.
      */
-    public String getCoverCrop() {
+    public String getCropPurpose() {
         return (String) get(11);
     }
 
@@ -377,7 +377,7 @@ public class DatasetMetaRecord extends UpdatableRecordImpl<DatasetMetaRecord> im
      */
     @Override
     public Field<String> field12() {
-        return DatasetMeta.DATASET_META.COVER_CROP;
+        return DatasetMeta.DATASET_META.CROP_PURPOSE;
     }
 
     /**
@@ -505,7 +505,7 @@ public class DatasetMetaRecord extends UpdatableRecordImpl<DatasetMetaRecord> im
      */
     @Override
     public String component12() {
-        return getCoverCrop();
+        return getCropPurpose();
     }
 
     /**
@@ -633,7 +633,7 @@ public class DatasetMetaRecord extends UpdatableRecordImpl<DatasetMetaRecord> im
      */
     @Override
     public String value12() {
-        return getCoverCrop();
+        return getCropPurpose();
     }
 
     /**
@@ -772,7 +772,7 @@ public class DatasetMetaRecord extends UpdatableRecordImpl<DatasetMetaRecord> im
      */
     @Override
     public DatasetMetaRecord value12(String value) {
-        setCoverCrop(value);
+        setCropPurpose(value);
         return this;
     }
 
@@ -850,7 +850,7 @@ public class DatasetMetaRecord extends UpdatableRecordImpl<DatasetMetaRecord> im
     /**
      * Create a detached, initialised DatasetMetaRecord
      */
-    public DatasetMetaRecord(Integer datasetId, String email, String tillage, String fertilizer, String herbicide, String farmManagement, String weedCover, String disease, String pests, String soilHealth, String biodiversity, String coverCrop, Timestamp sowingDate, Timestamp harvestDate, Timestamp createdOn, Timestamp updatedOn) {
+    public DatasetMetaRecord(Integer datasetId, String email, String tillage, String fertilizer, String herbicide, String farmManagement, String weedCover, String disease, String pests, String soilHealth, String biodiversity, String cropPurpose, Timestamp sowingDate, Timestamp harvestDate, Timestamp createdOn, Timestamp updatedOn) {
         super(DatasetMeta.DATASET_META);
 
         set(0, datasetId);
@@ -864,7 +864,7 @@ public class DatasetMetaRecord extends UpdatableRecordImpl<DatasetMetaRecord> im
         set(8, pests);
         set(9, soilHealth);
         set(10, biodiversity);
-        set(11, coverCrop);
+        set(11, cropPurpose);
         set(12, sowingDate);
         set(13, harvestDate);
         set(14, createdOn);

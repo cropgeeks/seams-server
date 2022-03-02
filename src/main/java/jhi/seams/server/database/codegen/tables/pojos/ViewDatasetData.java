@@ -26,7 +26,7 @@ import java.util.Arrays;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ViewDatasetData implements Serializable {
 
-    private static final long serialVersionUID = -417737786;
+    private static final long serialVersionUID = 224759345;
 
     private Integer                        datasetId;
     private String                         datasetName;
@@ -42,7 +42,7 @@ public class ViewDatasetData implements Serializable {
     private String                         pests;
     private String                         soilHealth;
     private String                         biodiversity;
-    private String                         coverCrop;
+    private String                         cropPurpose;
     private Timestamp                      sowingDate;
     private Timestamp                      harvestDate;
     private String[]                       components;
@@ -67,7 +67,7 @@ public class ViewDatasetData implements Serializable {
         this.pests = value.pests;
         this.soilHealth = value.soilHealth;
         this.biodiversity = value.biodiversity;
-        this.coverCrop = value.coverCrop;
+        this.cropPurpose = value.cropPurpose;
         this.sowingDate = value.sowingDate;
         this.harvestDate = value.harvestDate;
         this.components = value.components;
@@ -91,7 +91,7 @@ public class ViewDatasetData implements Serializable {
         String                         pests,
         String                         soilHealth,
         String                         biodiversity,
-        String                         coverCrop,
+        String                         cropPurpose,
         Timestamp                      sowingDate,
         Timestamp                      harvestDate,
         String[]                       components,
@@ -113,7 +113,7 @@ public class ViewDatasetData implements Serializable {
         this.pests = pests;
         this.soilHealth = soilHealth;
         this.biodiversity = biodiversity;
-        this.coverCrop = coverCrop;
+        this.cropPurpose = cropPurpose;
         this.sowingDate = sowingDate;
         this.harvestDate = harvestDate;
         this.components = components;
@@ -234,12 +234,12 @@ public class ViewDatasetData implements Serializable {
         this.biodiversity = biodiversity;
     }
 
-    public String getCoverCrop() {
-        return this.coverCrop;
+    public String getCropPurpose() {
+        return this.cropPurpose;
     }
 
-    public void setCoverCrop(String coverCrop) {
-        this.coverCrop = coverCrop;
+    public void setCropPurpose(String cropPurpose) {
+        this.cropPurpose = cropPurpose;
     }
 
     public Timestamp getSowingDate() {
@@ -308,7 +308,7 @@ public class ViewDatasetData implements Serializable {
         sb.append(", ").append(pests);
         sb.append(", ").append(soilHealth);
         sb.append(", ").append(biodiversity);
-        sb.append(", ").append(coverCrop);
+        sb.append(", ").append(cropPurpose);
         sb.append(", ").append(sowingDate);
         sb.append(", ").append(harvestDate);
         sb.append(", ").append(Arrays.toString(components));

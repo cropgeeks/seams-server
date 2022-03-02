@@ -29,7 +29,7 @@ import java.sql.Timestamp;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ViewDatasetData extends TableImpl<ViewDatasetDataRecord> {
 
-    private static final long serialVersionUID = -746980941;
+    private static final long serialVersionUID = -534116680;
 
     /**
      * The reference instance of <code>seams_db.view_dataset_data</code>
@@ -115,9 +115,9 @@ public class ViewDatasetData extends TableImpl<ViewDatasetDataRecord> {
     public final TableField<ViewDatasetDataRecord, String> BIODIVERSITY = createField("biodiversity", org.jooq.impl.SQLDataType.CLOB, this, "");
 
     /**
-     * The column <code>seams_db.view_dataset_data.cover_crop</code>.
+     * The column <code>seams_db.view_dataset_data.crop_purpose</code>.
      */
-    public final TableField<ViewDatasetDataRecord, String> COVER_CROP = createField("cover_crop", org.jooq.impl.SQLDataType.CLOB, this, "");
+    public final TableField<ViewDatasetDataRecord, String> CROP_PURPOSE = createField("crop_purpose", org.jooq.impl.SQLDataType.CLOB, this, "");
 
     /**
      * The column <code>seams_db.view_dataset_data.sowing_date</code>.

@@ -26,7 +26,7 @@ import java.sql.Timestamp;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ViewDatasetMetaRecord extends TableRecordImpl<ViewDatasetMetaRecord> implements Record19<Integer, String, String, Double, Double, String, String, String, String, String, String, String, String, String, String, Timestamp, Timestamp, String[], Integer[]> {
 
-    private static final long serialVersionUID = -483663743;
+    private static final long serialVersionUID = 788701635;
 
     /**
      * Setter for <code>seams_db.view_dataset_meta.dataset_id</code>.
@@ -225,16 +225,16 @@ public class ViewDatasetMetaRecord extends TableRecordImpl<ViewDatasetMetaRecord
     }
 
     /**
-     * Setter for <code>seams_db.view_dataset_meta.cover_crop</code>.
+     * Setter for <code>seams_db.view_dataset_meta.crop_purpose</code>.
      */
-    public void setCoverCrop(String value) {
+    public void setCropPurpose(String value) {
         set(14, value);
     }
 
     /**
-     * Getter for <code>seams_db.view_dataset_meta.cover_crop</code>.
+     * Getter for <code>seams_db.view_dataset_meta.crop_purpose</code>.
      */
-    public String getCoverCrop() {
+    public String getCropPurpose() {
         return (String) get(14);
     }
 
@@ -431,7 +431,7 @@ public class ViewDatasetMetaRecord extends TableRecordImpl<ViewDatasetMetaRecord
      */
     @Override
     public Field<String> field15() {
-        return ViewDatasetMeta.VIEW_DATASET_META.COVER_CROP;
+        return ViewDatasetMeta.VIEW_DATASET_META.CROP_PURPOSE;
     }
 
     /**
@@ -583,7 +583,7 @@ public class ViewDatasetMetaRecord extends TableRecordImpl<ViewDatasetMetaRecord
      */
     @Override
     public String component15() {
-        return getCoverCrop();
+        return getCropPurpose();
     }
 
     /**
@@ -735,7 +735,7 @@ public class ViewDatasetMetaRecord extends TableRecordImpl<ViewDatasetMetaRecord
      */
     @Override
     public String value15() {
-        return getCoverCrop();
+        return getCropPurpose();
     }
 
     /**
@@ -901,7 +901,7 @@ public class ViewDatasetMetaRecord extends TableRecordImpl<ViewDatasetMetaRecord
      */
     @Override
     public ViewDatasetMetaRecord value15(String value) {
-        setCoverCrop(value);
+        setCropPurpose(value);
         return this;
     }
 
@@ -982,7 +982,7 @@ public class ViewDatasetMetaRecord extends TableRecordImpl<ViewDatasetMetaRecord
     /**
      * Create a detached, initialised ViewDatasetMetaRecord
      */
-    public ViewDatasetMetaRecord(Integer datasetId, String datasetName, String siteName, Double latitude, Double longitude, String tillage, String fertilizer, String herbicide, String farmManagement, String weedCover, String disease, String pests, String soilHealth, String biodiversity, String coverCrop, Timestamp sowingDate, Timestamp harvestDate, String[] componentNames, Integer[] componentIds) {
+    public ViewDatasetMetaRecord(Integer datasetId, String datasetName, String siteName, Double latitude, Double longitude, String tillage, String fertilizer, String herbicide, String farmManagement, String weedCover, String disease, String pests, String soilHealth, String biodiversity, String cropPurpose, Timestamp sowingDate, Timestamp harvestDate, String[] componentNames, Integer[] componentIds) {
         super(ViewDatasetMeta.VIEW_DATASET_META);
 
         set(0, datasetId);
@@ -999,7 +999,7 @@ public class ViewDatasetMetaRecord extends TableRecordImpl<ViewDatasetMetaRecord
         set(11, pests);
         set(12, soilHealth);
         set(13, biodiversity);
-        set(14, coverCrop);
+        set(14, cropPurpose);
         set(15, sowingDate);
         set(16, harvestDate);
         set(17, componentNames);
