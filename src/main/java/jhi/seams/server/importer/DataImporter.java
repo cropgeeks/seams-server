@@ -261,7 +261,7 @@ public class DataImporter
 		{
 			String value = cell.getStringCellValue();
 
-			if (StringUtils.isEmpty(value) || value.equalsIgnoreCase("not recorded") || value.equalsIgnoreCase("none") || value.equalsIgnoreCase("no data"))
+			if (StringUtils.isEmpty(value) || value.equalsIgnoreCase("not recorded") || value.equalsIgnoreCase("none") || value.equalsIgnoreCase("no data") || value.equalsIgnoreCase("no"))
 			{
 				return null;
 			}
