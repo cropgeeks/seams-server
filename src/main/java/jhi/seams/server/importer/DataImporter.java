@@ -8,9 +8,11 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jooq.*;
+import org.jooq.conf.ParamType;
 import org.jooq.impl.DSL;
 
 import java.io.*;
+import java.math.*;
 import java.sql.*;
 import java.util.*;
 import java.util.logging.Logger;
@@ -27,12 +29,9 @@ import static jhi.seams.server.database.codegen.tables.Units.*;
 
 public class DataImporter
 {
-	public static void main(String[] args)
+	public static void importFile(File input)
+		throws IOException, SQLException
 	{
-		File input = new File(args[0]);
-
-		Database.init("localhost", "seams", null, "root", null, false);
-
 		Map<String, ComponentsRecord> dbComponents = new HashMap<>();
 		try (Connection conn = Database.getConnection();
 			 DSLContext context = Database.getContext(conn))
@@ -42,7 +41,7 @@ public class DataImporter
 			try (FileInputStream file = new FileInputStream(input);
 				 Workbook wb = new XSSFWorkbook(file))
 			{
-				Sheet data = wb.getSheet("Form responses 1");// TODO
+				Sheet data = wb.getSheetAt(0);
 
 				Row headers = data.getRow(0);
 
@@ -91,7 +90,8 @@ public class DataImporter
 					String email = getOptional(row.getCell(hm.get("This information will not be shared.")));
 					String datasetName = getOptional(row.getCell(hm.get("Trial Identifier/dataset name")));
 
-					if (StringUtils.isEmpty(datasetName)) {
+					if (StringUtils.isEmpty(datasetName))
+					{
 						Logger.getLogger("").warning("Missing dataset name found, skipping row: " + id);
 						continue;
 					}
@@ -165,7 +165,7 @@ public class DataImporter
 					{
 						List<ComponentsRecord> crops = new ArrayList<>();
 
-						Double yieldMixtureAsOne = getDouble(row.getCell(hm.get("Total mixture yield t/ha - " + componentCount + " components")));
+						BigDecimal yieldMixtureAsOne = getBigDecimal(row.getCell(hm.get("Total mixture yield t/ha - " + componentCount + " components")));
 
 						for (int c = 1; c <= componentCount; c++)
 						{
@@ -186,10 +186,10 @@ public class DataImporter
 
 							crops.add(component);
 
-							Double sowingRateMonoculture = getDouble(row.getCell(hm.get("Monoculture - sowing rate kg/ha - component " + c + " of " + componentCount)));
-							Double sowingRateMixture = getDouble(row.getCell(hm.get("Mixture - sowing rate kg/ha - component " + c + " of " + componentCount)));
-							Double yieldMonoculture = getDouble(row.getCell(hm.get("Monoculture yield t/ha - component " + c + " of " + componentCount)));
-							Double yieldMixture = getDouble(row.getCell(hm.get("Mixture yield - t/ha- component " + c + " of " + componentCount)));
+							BigDecimal sowingRateMonoculture = getBigDecimal(row.getCell(hm.get("Monoculture - sowing rate kg/ha - component " + c + " of " + componentCount)));
+							BigDecimal sowingRateMixture = getBigDecimal(row.getCell(hm.get("Mixture - sowing rate kg/ha - component " + c + " of " + componentCount)));
+							BigDecimal yieldMonoculture = getBigDecimal(row.getCell(hm.get("Monoculture yield t/ha - component " + c + " of " + componentCount)));
+							BigDecimal yieldMixture = getBigDecimal(row.getCell(hm.get("Mixture yield - t/ha- component " + c + " of " + componentCount)));
 
 							ensureExists(context, dataset.getId(), sowingRate.getId(), kgPHa.getId(), MeasurementsMeasurementType.mono, sowingRateMonoculture, component.getId());
 							ensureExists(context, dataset.getId(), sowingRate.getId(), kgPHa.getId(), MeasurementsMeasurementType.mix, sowingRateMixture, component.getId());
@@ -203,37 +203,32 @@ public class DataImporter
 
 				System.out.println(hm);
 			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-		}
-		catch (SQLException throwables)
-		{
-			throwables.printStackTrace();
 		}
 	}
 
-	private static void ensureExists(DSLContext context, int datasetId, int traitId, int unitId, MeasurementsMeasurementType type, Double measurement, Integer... components)
+	private static void ensureExists(DSLContext context, int datasetId, int traitId, int unitId, MeasurementsMeasurementType type, BigDecimal measurement, Integer... components)
 	{
 		if (measurement == null || components == null)
 			return;
+
+		Arrays.sort(components);
 
 		List<Field<?>> fields = new ArrayList<>(Arrays.asList(MEASUREMENTS.fields()));
 		Field<String> componentsField = DSL.groupConcat(MEASUREMENT_COMPONENTS.COMPONENT_ID).orderBy(MEASUREMENT_COMPONENTS.COMPONENT_ID).separator(", ").as("components");
 		fields.add(componentsField);
 
-		MeasurementsRecord m = context.select(fields)
-									  .from(MEASUREMENTS)
-									  .leftJoin(MEASUREMENT_COMPONENTS).on(MEASUREMENT_COMPONENTS.MEASUREMENT_ID.eq(MEASUREMENTS.ID))
-									  .where(MEASUREMENTS.DATASET_ID.eq(datasetId))
-									  .and(MEASUREMENTS.TRAIT_ID.eq(traitId))
-									  .and(MEASUREMENTS.TRAIT_UNIT_ID.eq(unitId))
-									  .and(MEASUREMENTS.MEASUREMENT_TYPE.eq(type))
-									  .and(MEASUREMENTS.MEASUREMENT.isNotDistinctFrom(measurement))
-									  .groupBy(MEASUREMENTS.ID)
-									  .having(componentsField.eq(Arrays.stream(components).map(c -> Integer.toString(c)).collect(Collectors.joining(", "))))
-									  .fetchAnyInto(MeasurementsRecord.class);
+		SelectHavingConditionStep<Record> having = context.select(fields)
+														  .from(MEASUREMENTS)
+														  .leftJoin(MEASUREMENT_COMPONENTS).on(MEASUREMENT_COMPONENTS.MEASUREMENT_ID.eq(MEASUREMENTS.ID))
+														  .where(MEASUREMENTS.DATASET_ID.eq(datasetId))
+														  .and(MEASUREMENTS.TRAIT_ID.eq(traitId))
+														  .and(MEASUREMENTS.TRAIT_UNIT_ID.eq(unitId))
+														  .and(MEASUREMENTS.MEASUREMENT_TYPE.eq(type))
+														  .and(MEASUREMENTS.MEASUREMENT.isNotDistinctFrom(measurement))
+														  .groupBy(MEASUREMENTS.ID)
+														  .having(componentsField.eq(Arrays.stream(components).map(c -> Integer.toString(c)).collect(Collectors.joining(", "))));
+
+		MeasurementsRecord m = having.fetchAnyInto(MeasurementsRecord.class);
 
 		if (m == null)
 		{
@@ -307,6 +302,34 @@ public class DataImporter
 			try
 			{
 				return Integer.parseInt(cell.getStringCellValue());
+			}
+			catch (Exception e1)
+			{
+				return null;
+			}
+		}
+	}
+
+	private static BigDecimal getBigDecimal(Cell cell)
+	{
+		try
+		{
+			if (cell.getCellType() == CellType.BLANK)
+			{
+				return null;
+			}
+			BigDecimal result = new BigDecimal(cell.getNumericCellValue(), MathContext.DECIMAL64);
+			result = result.setScale(6, RoundingMode.HALF_UP);
+			return result;
+		}
+		catch (Exception e)
+		{
+			try
+			{
+				String value = cell.getStringCellValue();
+				BigDecimal result = new BigDecimal(Double.parseDouble(value), MathContext.DECIMAL64);
+				result = result.setScale(6, RoundingMode.HALF_UP);
+				return result;
 			}
 			catch (Exception e1)
 			{

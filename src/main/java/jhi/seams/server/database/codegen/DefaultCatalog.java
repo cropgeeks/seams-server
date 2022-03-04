@@ -4,9 +4,9 @@
 package jhi.seams.server.database.codegen;
 
 
-import org.jooq.impl.CatalogImpl;
-
 import javax.annotation.Generated;
+
+import org.jooq.impl.CatalogImpl;
 
 
 // @formatter:off

@@ -4,12 +4,17 @@
 package jhi.seams.server.database.codegen.tables.records;
 
 
-import jhi.seams.server.database.codegen.tables.Components;
-import org.jooq.*;
-import org.jooq.impl.UpdatableRecordImpl;
+import java.sql.Timestamp;
 
 import javax.annotation.Generated;
-import java.sql.Timestamp;
+
+import jhi.seams.server.database.codegen.tables.Components;
+
+import org.jooq.Field;
+import org.jooq.Record1;
+import org.jooq.Record6;
+import org.jooq.Row6;
+import org.jooq.impl.UpdatableRecordImpl;
 
 
 // @formatter:off

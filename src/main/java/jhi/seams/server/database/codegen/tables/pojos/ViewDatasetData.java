@@ -4,12 +4,14 @@
 package jhi.seams.server.database.codegen.tables.pojos;
 
 
-import jhi.seams.server.database.codegen.enums.ViewDatasetDataMeasurementType;
-
-import javax.annotation.Generated;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Arrays;
+
+import javax.annotation.Generated;
+
+import jhi.seams.server.database.codegen.enums.ViewDatasetDataMeasurementType;
 
 
 // @formatter:off
@@ -26,7 +28,7 @@ import java.util.Arrays;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ViewDatasetData implements Serializable {
 
-    private static final long serialVersionUID = 224759345;
+    private static final long serialVersionUID = 1001877316;
 
     private Integer                        datasetId;
     private String                         datasetName;
@@ -46,8 +48,8 @@ public class ViewDatasetData implements Serializable {
     private Timestamp                      sowingDate;
     private Timestamp                      harvestDate;
     private String[]                       components;
-    private Double                         sowingRate;
-    private Double                         yield;
+    private BigDecimal                     sowingRate;
+    private BigDecimal                     yield;
     private ViewDatasetDataMeasurementType measurementType;
 
     public ViewDatasetData() {}
@@ -95,8 +97,8 @@ public class ViewDatasetData implements Serializable {
         Timestamp                      sowingDate,
         Timestamp                      harvestDate,
         String[]                       components,
-        Double                         sowingRate,
-        Double                         yield,
+        BigDecimal                     sowingRate,
+        BigDecimal                     yield,
         ViewDatasetDataMeasurementType measurementType
     ) {
         this.datasetId = datasetId;
@@ -266,19 +268,19 @@ public class ViewDatasetData implements Serializable {
         this.components = components;
     }
 
-    public Double getSowingRate() {
+    public BigDecimal getSowingRate() {
         return this.sowingRate;
     }
 
-    public void setSowingRate(Double sowingRate) {
+    public void setSowingRate(BigDecimal sowingRate) {
         this.sowingRate = sowingRate;
     }
 
-    public Double getYield() {
+    public BigDecimal getYield() {
         return this.yield;
     }
 
-    public void setYield(Double yield) {
+    public void setYield(BigDecimal yield) {
         this.yield = yield;
     }
 

@@ -33,6 +33,8 @@ public class PropertyWatcher
 {
 	public static final String PROP_EXT_DATA = "data.directory.external";
 
+	public static final String PROP_REMOTE_SPREADSHEET_URL = "remote.spreadsheet.url";
+
 	public static final String PROP_DATABASE_SERVER   = "database.server";
 	public static final String PROP_DATABASE_NAME     = "database.name";
 	public static final String PROP_DATABASE_PORT     = "database.port";

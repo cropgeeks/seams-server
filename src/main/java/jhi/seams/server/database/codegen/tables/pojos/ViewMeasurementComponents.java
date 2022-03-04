@@ -4,12 +4,14 @@
 package jhi.seams.server.database.codegen.tables.pojos;
 
 
-import jhi.seams.server.database.codegen.enums.ViewMeasurementComponentsMeasurementType;
-
-import javax.annotation.Generated;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Arrays;
+
+import javax.annotation.Generated;
+
+import jhi.seams.server.database.codegen.enums.ViewMeasurementComponentsMeasurementType;
 
 
 // @formatter:off
@@ -26,7 +28,7 @@ import java.util.Arrays;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ViewMeasurementComponents implements Serializable {
 
-    private static final long serialVersionUID = -518750093;
+    private static final long serialVersionUID = -712867642;
 
     private Integer[]                                componentIds;
     private Integer                                  measurementId;
@@ -35,7 +37,7 @@ public class ViewMeasurementComponents implements Serializable {
     private String                                   traitName;
     private Integer                                  traitUnitId;
     private String                                   traitUnitName;
-    private Double                                   measurement;
+    private BigDecimal                               measurement;
     private ViewMeasurementComponentsMeasurementType measurementType;
     private Timestamp                                createdOn;
 
@@ -62,7 +64,7 @@ public class ViewMeasurementComponents implements Serializable {
         String                                   traitName,
         Integer                                  traitUnitId,
         String                                   traitUnitName,
-        Double                                   measurement,
+        BigDecimal                               measurement,
         ViewMeasurementComponentsMeasurementType measurementType,
         Timestamp                                createdOn
     ) {
@@ -134,11 +136,11 @@ public class ViewMeasurementComponents implements Serializable {
         this.traitUnitName = traitUnitName;
     }
 
-    public Double getMeasurement() {
+    public BigDecimal getMeasurement() {
         return this.measurement;
     }
 
-    public void setMeasurement(Double measurement) {
+    public void setMeasurement(BigDecimal measurement) {
         this.measurement = measurement;
     }
 

@@ -4,10 +4,10 @@
 package jhi.seams.server.database.codegen;
 
 
+import javax.annotation.Generated;
+
 import org.jooq.Catalog;
 import org.jooq.impl.SchemaImpl;
-
-import javax.annotation.Generated;
 
 
 // @formatter:off

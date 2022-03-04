@@ -4,14 +4,25 @@
 package jhi.seams.server.database.codegen.tables;
 
 
-import jhi.seams.server.database.codegen.SeamsDb;
-import jhi.seams.server.database.codegen.tables.records.SitesRecord;
-import org.jooq.*;
-import org.jooq.impl.*;
+import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.annotation.Generated;
-import java.sql.Timestamp;
-import java.util.*;
+
+import jhi.seams.server.database.codegen.SeamsDb;
+import jhi.seams.server.database.codegen.tables.records.SitesRecord;
+
+import org.jooq.Field;
+import org.jooq.Identity;
+import org.jooq.Name;
+import org.jooq.Schema;
+import org.jooq.Table;
+import org.jooq.TableField;
+import org.jooq.UniqueKey;
+import org.jooq.impl.DSL;
+import org.jooq.impl.Internal;
+import org.jooq.impl.TableImpl;
 
 
 // @formatter:off

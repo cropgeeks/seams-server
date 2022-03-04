@@ -4,15 +4,23 @@
 package jhi.seams.server.database.codegen.tables;
 
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+
+import javax.annotation.Generated;
+
 import jhi.seams.server.binding.StringArrayBinding;
 import jhi.seams.server.database.codegen.SeamsDb;
 import jhi.seams.server.database.codegen.enums.ViewDatasetDataMeasurementType;
 import jhi.seams.server.database.codegen.tables.records.ViewDatasetDataRecord;
-import org.jooq.*;
-import org.jooq.impl.*;
 
-import javax.annotation.Generated;
-import java.sql.Timestamp;
+import org.jooq.Field;
+import org.jooq.Name;
+import org.jooq.Schema;
+import org.jooq.Table;
+import org.jooq.TableField;
+import org.jooq.impl.DSL;
+import org.jooq.impl.TableImpl;
 
 
 // @formatter:off
@@ -29,7 +37,7 @@ import java.sql.Timestamp;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ViewDatasetData extends TableImpl<ViewDatasetDataRecord> {
 
-    private static final long serialVersionUID = -534116680;
+    private static final long serialVersionUID = 387413197;
 
     /**
      * The reference instance of <code>seams_db.view_dataset_data</code>
@@ -137,12 +145,12 @@ public class ViewDatasetData extends TableImpl<ViewDatasetDataRecord> {
     /**
      * The column <code>seams_db.view_dataset_data.sowing_rate</code>.
      */
-    public final TableField<ViewDatasetDataRecord, Double> SOWING_RATE = createField("sowing_rate", org.jooq.impl.SQLDataType.DOUBLE, this, "");
+    public final TableField<ViewDatasetDataRecord, BigDecimal> SOWING_RATE = createField("sowing_rate", org.jooq.impl.SQLDataType.DECIMAL(12, 6), this, "");
 
     /**
      * The column <code>seams_db.view_dataset_data.yield</code>.
      */
-    public final TableField<ViewDatasetDataRecord, Double> YIELD = createField("yield", org.jooq.impl.SQLDataType.DOUBLE, this, "");
+    public final TableField<ViewDatasetDataRecord, BigDecimal> YIELD = createField("yield", org.jooq.impl.SQLDataType.DECIMAL(12, 6), this, "");
 
     /**
      * The column <code>seams_db.view_dataset_data.measurement_type</code>.

@@ -4,11 +4,13 @@
 package jhi.seams.server.database.codegen.tables.pojos;
 
 
-import jhi.seams.server.database.codegen.enums.MeasurementsMeasurementType;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 import javax.annotation.Generated;
-import java.io.Serializable;
-import java.sql.Timestamp;
+
+import jhi.seams.server.database.codegen.enums.MeasurementsMeasurementType;
 
 
 // @formatter:off
@@ -25,13 +27,13 @@ import java.sql.Timestamp;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Measurements implements Serializable {
 
-    private static final long serialVersionUID = 1572464237;
+    private static final long serialVersionUID = 511068672;
 
     private Integer                     id;
     private Integer                     datasetId;
     private Integer                     traitId;
     private Integer                     traitUnitId;
-    private Double                      measurement;
+    private BigDecimal                  measurement;
     private MeasurementsMeasurementType measurementType;
     private Timestamp                   createdOn;
     private Timestamp                   updatedOn;
@@ -54,7 +56,7 @@ public class Measurements implements Serializable {
         Integer                     datasetId,
         Integer                     traitId,
         Integer                     traitUnitId,
-        Double                      measurement,
+        BigDecimal                  measurement,
         MeasurementsMeasurementType measurementType,
         Timestamp                   createdOn,
         Timestamp                   updatedOn
@@ -101,11 +103,11 @@ public class Measurements implements Serializable {
         this.traitUnitId = traitUnitId;
     }
 
-    public Double getMeasurement() {
+    public BigDecimal getMeasurement() {
         return this.measurement;
     }
 
-    public void setMeasurement(Double measurement) {
+    public void setMeasurement(BigDecimal measurement) {
         this.measurement = measurement;
     }
 

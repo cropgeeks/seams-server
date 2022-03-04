@@ -4,15 +4,23 @@
 package jhi.seams.server.database.codegen.tables;
 
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+
+import javax.annotation.Generated;
+
 import jhi.seams.server.binding.IntArrayBinding;
 import jhi.seams.server.database.codegen.SeamsDb;
 import jhi.seams.server.database.codegen.enums.ViewMeasurementComponentsMeasurementType;
 import jhi.seams.server.database.codegen.tables.records.ViewMeasurementComponentsRecord;
-import org.jooq.*;
-import org.jooq.impl.*;
 
-import javax.annotation.Generated;
-import java.sql.Timestamp;
+import org.jooq.Field;
+import org.jooq.Name;
+import org.jooq.Schema;
+import org.jooq.Table;
+import org.jooq.TableField;
+import org.jooq.impl.DSL;
+import org.jooq.impl.TableImpl;
 
 
 // @formatter:off
@@ -29,7 +37,7 @@ import java.sql.Timestamp;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ViewMeasurementComponents extends TableImpl<ViewMeasurementComponentsRecord> {
 
-    private static final long serialVersionUID = 2112822800;
+    private static final long serialVersionUID = 1711141360;
 
     /**
      * The reference instance of <code>seams_db.view_measurement_components</code>
@@ -82,7 +90,7 @@ public class ViewMeasurementComponents extends TableImpl<ViewMeasurementComponen
     /**
      * The column <code>seams_db.view_measurement_components.measurement</code>.
      */
-    public final TableField<ViewMeasurementComponentsRecord, Double> MEASUREMENT = createField("measurement", org.jooq.impl.SQLDataType.FLOAT.nullable(false), this, "");
+    public final TableField<ViewMeasurementComponentsRecord, BigDecimal> MEASUREMENT = createField("measurement", org.jooq.impl.SQLDataType.DECIMAL(12, 6).nullable(false), this, "");
 
     /**
      * The column <code>seams_db.view_measurement_components.measurement_type</code>.
