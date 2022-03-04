@@ -36,6 +36,7 @@ public class ApplicationListener implements ServletContextListener
 			e.printStackTrace();
 		}
 
+		backgroundScheduler = Executors.newSingleThreadScheduledExecutor();
 		// Run the importer at least once a day. It will also be triggered by form submissions
 		backgroundScheduler.scheduleAtFixedRate(new DatabaseUpdaterRunnable(), 1, 1440, TimeUnit.MINUTES);
 
