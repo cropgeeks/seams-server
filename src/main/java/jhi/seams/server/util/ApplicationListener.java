@@ -1,11 +1,10 @@
 package jhi.seams.server.util;
 
-import com.thetransactioncompany.cors.*;
+import jakarta.servlet.*;
+import jakarta.servlet.annotation.WebListener;
 import jhi.seams.server.Database;
+import jhi.seams.server.util.perdix.PerdixClient;
 
-import javax.servlet.*;
-import javax.servlet.annotation.WebListener;
-import java.util.Properties;
 import java.util.concurrent.*;
 
 /**
@@ -23,22 +22,10 @@ public class ApplicationListener implements ServletContextListener
 	@Override
 	public void contextInitialized(ServletContextEvent sce)
 	{
-		try
-		{
-			Properties props = new Properties();
-			props.setProperty("cors.supportedMethods", "GET, POST, HEAD, OPTIONS, PATCH, DELETE, PUT");
-			final FilterRegistration.Dynamic corsFilter = sce.getServletContext().addFilter("CORS", new CORSFilter(new CORSConfiguration(props)));
-			corsFilter.setInitParameter("cors.supportedMethods", "GET, POST, HEAD, OPTIONS, PATCH, DELETE, PUT");
-			corsFilter.addMappingForUrlPatterns(null, false, "/*");
-		}
-		catch (CORSConfigurationException e)
-		{
-			e.printStackTrace();
-		}
-
 		backgroundScheduler = Executors.newSingleThreadScheduledExecutor();
 		// Run the importer at least once a day. It will also be triggered by form submissions
 		backgroundScheduler.scheduleAtFixedRate(new DatabaseUpdaterRunnable(), 1, 1440, TimeUnit.MINUTES);
+		backgroundScheduler.scheduleAtFixedRate(new PerdixClient(), 1, 1440, TimeUnit.MINUTES);
 
 		PropertyWatcher.initialize();
 	}

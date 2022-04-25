@@ -1,10 +1,8 @@
 package jhi.seams.server.resource;
 
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import jhi.seams.server.util.DatabaseUpdater;
-
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import java.util.logging.Logger;
 
 @Path("form-update")
 public class FormUpdateResource

@@ -2,7 +2,7 @@ package jhi.seams;
 
 import org.glassfish.jersey.server.ResourceConfig;
 
-import javax.ws.rs.ApplicationPath;
+import jakarta.ws.rs.ApplicationPath;
 
 @ApplicationPath("/api/")
 public class Seams extends ResourceConfig
