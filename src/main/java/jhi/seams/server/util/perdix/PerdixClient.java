@@ -32,6 +32,13 @@ public class PerdixClient implements Runnable
 	{
 		try
 		{
+			String email = PropertyWatcher.get("perdix.username");
+			String password = PropertyWatcher.get("perdix.password");
+
+			if (StringUtils.isEmpty(email) || StringUtils.isEmpty(password)) {
+				return;
+			}
+
 			Retrofit retrofit = new Retrofit.Builder()
 				.addConverterFactory(GsonConverterFactory.create())
 				.baseUrl("https://portal.perdixpro.com/")
@@ -40,8 +47,8 @@ public class PerdixClient implements Runnable
 			PerdixApi service = retrofit.create(PerdixApi.class);
 
 			Response<PerdixLoginResponse> resp = service.signIn(new PerdixLoginRequest()
-															.email(PropertyWatcher.get("perdix.username"))
-															.password(PropertyWatcher.get("perdix.password")))
+															.email(email)
+															.password(password))
 														.execute();
 
 			if (resp.isSuccessful())
