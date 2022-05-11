@@ -25,7 +25,7 @@ public class ApplicationListener implements ServletContextListener
 		backgroundScheduler = Executors.newSingleThreadScheduledExecutor();
 		// Run the importer at least once a day. It will also be triggered by form submissions
 		backgroundScheduler.scheduleAtFixedRate(new DatabaseUpdaterRunnable(), 1, 1440, TimeUnit.MINUTES);
-		backgroundScheduler.scheduleAtFixedRate(new PerdixClient(), 1, 1440, TimeUnit.MINUTES);
+		backgroundScheduler.scheduleAtFixedRate(new PerdixClient(), 0, 2, TimeUnit.HOURS);
 
 		PropertyWatcher.initialize();
 	}
