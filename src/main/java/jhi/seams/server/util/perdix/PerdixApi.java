@@ -18,4 +18,10 @@ public interface PerdixApi
 	@GET("media/?w=1920")
 	@Streaming
 	Call<ResponseBody> getImage(@Query("m") String imageSrc, @Query("t") String token, @Query("a") String accountId, @Query("u") String user);
+
+	@POST("api/data/findSamples")
+	Call<PerdixSampleResponse> getSamples(@Body PerdixSampleRequest query,
+										  @Header("token") String token,
+										  @Header("account") String account,
+										  @Header("user") String user);
 }

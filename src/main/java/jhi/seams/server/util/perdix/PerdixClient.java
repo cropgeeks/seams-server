@@ -35,7 +35,8 @@ public class PerdixClient implements Runnable
 			String email = PropertyWatcher.get("perdix.username");
 			String password = PropertyWatcher.get("perdix.password");
 
-			if (StringUtils.isEmpty(email) || StringUtils.isEmpty(password)) {
+			if (StringUtils.isEmpty(email) || StringUtils.isEmpty(password))
+			{
 				return;
 			}
 
